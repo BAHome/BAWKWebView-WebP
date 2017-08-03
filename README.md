@@ -18,17 +18,17 @@ UIWebView，WKWebView都不支持WebP。（UIWebView 可以用NSUrlProtocol来�
 ![BAWKWebView-WebP1](https://github.com/BAHome/BAWKWebView-WebP/blob/master/Images/BAWKWebView-WebP1.png)
 
 ## 3、安装、导入示例和源码地址
-* 1、pod 导入【最新版本：![](https://img.shields.io/cocoapods/v/BAWKWebView-WebP.svg?style=flat)】： <br>
+<!--* 1、pod 导入【最新版本：![](https://img.shields.io/cocoapods/v/BAWKWebView-WebP.svg?style=flat)】： <br>
  `pod 'BAWKWebView-WebP'` <br>
 如果发现 `pod search BAWKWebView-WebP` 搜索出来的不是最新版本，需要在终端执行 cd 转换文件路径命令退回到 desktop，然后执行 `pod setup` 命令更新本地spec缓存（可能需要几分钟），然后再搜索就可以了。<br>
 具体步骤：
   - pod setup : 初始化
   - pod repo update : 更新仓库
-  - pod search BAWKWebView-WebP
-* 2、文件夹拖入：下载 demo，把 BAWKWebView-WebP 文件夹拖入项目即可，<br>
-* 3、导入头文件：<br>
+  - pod search BAWKWebView-WebP-->
+* 1、文件夹拖入：下载 demo，把 BAWKWebView-WebP 文件夹拖入项目即可，另外需要 pod 导入 `pod 'SDWebImage/WebP'` <br>
+* 2、导入头文件：<br>
 `  #import "BAWKWebView_WebP.h" `<br>
-* 4、项目源码地址：<br>
+* 3、项目源码地址：<br>
  OC 版 ：[https://github.com/BAHome/BAWKWebView-WebP](https://github.com/BAHome/BAWKWebView-WebP)<br>
 * 5、注意：因为图片的压缩和解码都由 google 提供的 API 完成，所以在使用的时候，记得开启 VPN 再更新 pod ，以免更新 pod 会失败！
  
