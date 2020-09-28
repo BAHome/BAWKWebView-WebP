@@ -1,40 +1,35 @@
 PODS:
-  - libwebp (0.6.0):
-    - libwebp/core (= 0.6.0)
-    - libwebp/dec (= 0.6.0)
-    - libwebp/demux (= 0.6.0)
-    - libwebp/dsp (= 0.6.0)
-    - libwebp/enc (= 0.6.0)
-    - libwebp/mux (= 0.6.0)
-    - libwebp/utils (= 0.6.0)
-    - libwebp/webp (= 0.6.0)
-  - libwebp/core (0.6.0):
+  - libwebp (1.1.0):
+    - libwebp/demux (= 1.1.0)
+    - libwebp/mux (= 1.1.0)
+    - libwebp/webp (= 1.1.0)
+  - libwebp/demux (1.1.0):
     - libwebp/webp
-  - libwebp/dec (0.6.0):
-    - libwebp/core
-  - libwebp/demux (0.6.0):
-    - libwebp/core
-  - libwebp/dsp (0.6.0):
-    - libwebp/core
-  - libwebp/enc (0.6.0):
-    - libwebp/core
-  - libwebp/mux (0.6.0):
-    - libwebp/core
-  - libwebp/utils (0.6.0):
-    - libwebp/core
-  - libwebp/webp (0.6.0)
-  - SDWebImage/Core (4.0.0)
-  - SDWebImage/WebP (4.0.0):
-    - libwebp
-    - SDWebImage/Core
+  - libwebp/mux (1.1.0):
+    - libwebp/demux
+  - libwebp/webp (1.1.0)
+  - SDWebImage (5.9.1):
+    - SDWebImage/Core (= 5.9.1)
+  - SDWebImage/Core (5.9.1)
+  - SDWebImageWebPCoder (0.6.1):
+    - libwebp (~> 1.0)
+    - SDWebImage/Core (~> 5.7)
 
 DEPENDENCIES:
-  - SDWebImage/WebP
+  - SDWebImage (>= 5.9)
+  - SDWebImageWebPCoder
+
+SPEC REPOS:
+  trunk:
+    - libwebp
+    - SDWebImage
+    - SDWebImageWebPCoder
 
 SPEC CHECKSUMS:
-  libwebp: 1d5a07c2eb97f9c31bd5f154bb82efc0ea67c6a2
-  SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
+  libwebp: 946cb3063cea9236285f7e9a8505d806d30e07f3
+  SDWebImage: a990c053fff71e388a10f3357edb0be17929c9c5
+  SDWebImageWebPCoder: d0dac55073088d24b2ac1b191a71a8f8d0adac21
 
-PODFILE CHECKSUM: 0b4a18e8d55605d6055b6de28ddd6c22c5ea617c
+PODFILE CHECKSUM: 65862234018995f74a645dc7f7dca4cdf9941215
 
-COCOAPODS: 1.0.1
+COCOAPODS: 1.9.3
