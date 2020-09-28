@@ -232,10 +232,11 @@ didReceiveResponse:(NSURLResponse *)response
         ///
         /// 具体原因看 [SDImageCoderHelper animatedImageWithFrames:frames] 方法
         /// 里面有求最大公约数 NSUInteger const gcd = gcdArray(frameCount, durations);
-        /// 然后按最大公约数gcd重复插入同一阵gcd次  for (size_t i = 0; i < repeatCount; ++i) {
+        /// 然后按最大公约数gcd重复插入同一帧gcd次  for (size_t i = 0; i < repeatCount; ++i) {
         /// 正常情况下gcd是1，每1帧插入1次生成新的动图(animatedImage)
         /// 异常情况下gcd会大于1，就会出现同一帧重复插入的情况，会导致总时长累加gcd倍
-        /// 出现肉眼可见的卡顿。所以这里要跳着取 (repeatCount = gcd)
+        /// 出现肉眼可见的卡顿，单个gif的文件大小也会很大，
+        /// 所以这里要跳着取 (repeatCount = gcd)，即可正常显示
         
         NSUInteger imageIndex = index * repeatCount;
         NSNumber * duration = frames[index];
