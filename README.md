@@ -35,64 +35,32 @@ UIWebView，WKWebView都不支持WebP。（UIWebView 可以用NSUrlProtocol来�
 ## 4、BAWKWebView-WebP 的类结构及 demo 示例
 ![BAWKWebView-WebP](https://github.com/BAHome/BAWKWebView-WebP/blob/master/Images/BAWKWebView-WebP.png)
 
-### BAWKWebView_WebP.h
-```
-#ifndef BAWKWebView_WebP_h
-#define BAWKWebView_WebP_h
-
-//#import "BAURLSessionProtocol.h"
-#import "NSURLProtocol+BAWebView.h"
-
-/*!
- *********************************************************************************
- ************************************ 更新说明 ************************************
- *********************************************************************************
- 
- 欢迎使用 BAHome 系列开源代码 ！
- 如有更多需求，请前往：https://github.com/BAHome
- 
- 项目源码地址：
- OC 版 ：https://github.com/BAHome/BAWKWebView_WebP
- 
- 最新更新时间：2017-08-02 【倒叙】<br>
- 最新Version：【Version：1.0.0】<br>
- 更新内容：<br>
- 1.0.0.1、用分类封装 WKWebView，代码无任何侵入更改<br>
- 1.0.0.2、WKWebView 目前可以兼容 GIF 动图显示，和 webp 的静态图片显示（webp 的动态图片显示需要等待后期版本更新）<br>
- */
-
-#endif /* BAWKWebView_WebP_h */
-```
-
-### NSURLProtocol+BAWebView.h
-```
-/****
- NSURLProtocol, UIWebView 直接就可以支持,但是 WKWebView 是不支持的,如何让 WKWebView 也支持 NSURLProtocol
- **/
-#import <Foundation/Foundation.h>
-
-@interface NSURLProtocol (BAWebView)
-
-/**
- NSURLProtocol：registerScheme
-
- @param scheme 【http/https】
- */
-+ (void)ba_web_registerScheme:(NSString*)scheme;
-
-/**
- NSURLProtocol：webView销毁的时候注销Scheme
-
- @param scheme 【http/https】
- */
-+ (void)ba_web_unregisterScheme:(NSString*)scheme;
-
-@end
-```
 
 ### demo 示例
+
+`引入SDWebImage来编解码webp`
+
+```C
+#import <SDWebImageWebPCoder/SDImageWebPCoder.h>
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+	... your code
+    
+    /// 添加Webp格式解码
+    [SDImageCodersManager.sharedManager addCoder:[SDImageWebPCoder sharedCoder]];
+    [SDWebImageDownloader.sharedDownloader setValue:@"image/webp,image/*,*/*;q=0.8" forHTTPHeaderField:@"Accept"];
+    
+    return YES;
+}
+
 ```
-// 示例1：
+
+使用
+
+> iOS14发布后，新版WebKit内核已经支持webp，所以只要向下兼容即可
+
+```C
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
@@ -110,43 +78,48 @@ UIWebView，WKWebView都不支持WebP。（UIWebView 可以用NSUrlProtocol来�
 }
 
 #pragma mark - 注册自定义 NSURLProtocol
-- (void)ba_registerURLProtocol
-{
-    [NSURLProtocol registerClass:NSClassFromString(@"BAURLSessionProtocol")];
-    // 注册registerScheme使得WKWebView支持NSURLProtocol
-    [NSURLProtocol ba_web_registerScheme:@"http"];
-    [NSURLProtocol ba_web_registerScheme:@"https"];
+BOOL beforeiOS(CGFloat aVersion) {
+    return UIDevice.currentDevice.systemVersion.floatValue < aVersion;
 }
 
-- (void)dealloc
-{
-    [NSURLProtocol unregisterClass:NSClassFromString(@"BAURLSessionProtocol")];
-    // 移除 registerScheme
-    [NSURLProtocol ba_web_unregisterScheme:@"http"];
-    [NSURLProtocol ba_web_unregisterScheme:@"https"];
-}
 
-- (WKWebView *)wkWebview
-{
-    if (!_wkWebview)
-    {
-        _wkWebview = [[WKWebView alloc]initWithFrame:CGRectZero];
+- (void)ba_registerURLProtocol {
+    // 新版WebKit内核已经支持webp
+    if (beforeiOS(14)) {
+        [NSURLProtocol registerClass:NSClassFromString(@"BAURLSessionProtocol")];
+        // 注册registerScheme使得WKWebView支持NSURLProtocol
+        [NSURLProtocol ba_web_registerScheme:@"http"];
+        [NSURLProtocol ba_web_registerScheme:@"https"];
     }
-    return _wkWebview;
+}
+
+- (void)dealloc{
+    if (beforeiOS(14)) {
+        [NSURLProtocol unregisterClass:NSClassFromString(@"BAURLSessionProtocol")];
+        // 移除 registerScheme
+        [NSURLProtocol ba_web_unregisterScheme:@"http"];
+        [NSURLProtocol ba_web_unregisterScheme:@"https"];
+    }
+}
+
+- (WKWebView *)wkWebview {
+    if (!_wkWebview) {
+        _wkWebview = [[WKWebView alloc]initWithFrame:CGRectZero];
+    } return _wkWebview;
 }
 
 其他示例可下载 demo 查看源码！
 ```
 
-## 5、更新记录：【倒叙】
- 欢迎使用 [【BAHome】](https://github.com/BAHome) 系列开源代码 ！
- 如有更多需求，请前往：[【https://github.com/BAHome】](https://github.com/BAHome) 
- 
- 最新更新时间：2017-08-02 【倒叙】<br>
- 最新Version：【Version：1.0.0】<br>
+
+## 5、更新
+
+ 最新更新时间：2020-09-28 【倒叙】<br>
+ 最新Version：【Version：1.0.3】<br>
  更新内容：<br>
- 1.0.0.1、用分类封装 WKWebView，代码无任何侵入更改<br>
- 1.0.0.2、WKWebView 目前可以兼容 GIF 动图显示，和 webp 的静态图片显示（webp 的动态图片显示需要等待后期版本更新）<br>
+> * 1.0.1、 用分类封装 WKWebView，代码无任何侵入更改
+> * 1.0.2、 WKWebView 目前可以兼容 GIF 动图显示，和 webp 的静态图片显示
+> * 1.0.3、  已支持webp动图显示
  
 ## 6、bug 反馈
 > 1、开发中遇到 bug，希望小伙伴儿们能够及时反馈与我们 BAHome 团队，我们必定会认真对待每一个问题！ <br>

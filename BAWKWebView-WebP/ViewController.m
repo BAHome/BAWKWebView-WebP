@@ -16,7 +16,7 @@
 #import "ViewController.h"
 #import "BAWebpController.h"
 
-static NSString * const kURL2 = @"http://onzbjws3p.bkt.clouddn.com/testForwebpSrc/webpForhtml.html";
+static NSString * const kURL2 = @"https://h5.mvmtv.com/2020-09-27/f488ebe1-4d54-a5cb-a38d-0d3097458999.html";
 static NSString * const kURL3 = @"https://isparta.github.io/compare-webp/index_a.html#12"; // webp动图测试
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -29,6 +29,7 @@ static NSString * const kURL3 = @"https://isparta.github.io/compare-webp/index_a
 
 @implementation ViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
@@ -40,8 +41,7 @@ static NSString * const kURL3 = @"https://isparta.github.io/compare-webp/index_a
 - (NSMutableArray *)dataArray {
     if (!_dataArray) {
         _dataArray = [NSMutableArray arrayWithObjects:@"webp静态图片",@"webp动图待完善", nil];
-    }
-    return _dataArray;
+    } return _dataArray;
 }
 
 - (UITableView *)baTableView {
@@ -53,13 +53,11 @@ static NSString * const kURL3 = @"https://isparta.github.io/compare-webp/index_a
     return _baTableView;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.dataArray count];
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *cellIdentifier = @"UITableViewCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if (cell == nil) {
@@ -69,19 +67,16 @@ static NSString * const kURL3 = @"https://isparta.github.io/compare-webp/index_a
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     return 50.0f;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     BAWebpController *webpVC = [[BAWebpController alloc]init];
     if (indexPath.row == 0) {
         webpVC.urlString = kURL2;
-    }
-    else if (indexPath.row == 1){
+    } else if (indexPath.row == 1){
         webpVC.urlString = kURL3;
     }
     [self.navigationController pushViewController:webpVC animated:YES];
